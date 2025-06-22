@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SABI FINANCES - Expert Finance Personnelle France | Crédit, Épargne, Banques</title>
+    <meta name="description" content="Simulateur crédit immobilier, comparateur banques françaises, conseils épargne. BNP Paribas, Crédit Agricole, paiement 3x sans frais.">
+    <meta name="keywords" content="crédit immobilier, simulation prêt, banque france, épargne, assurance vie, défiscalisation, paiement fractionné">
+    
+    <!-- Google Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6283676375456847" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-6283676375456847">
+    
+    <!-- Ads.txt -->
+    <meta name="ads-txt-verification" content="google.com, pub-6283676375456847, DIRECT, f08c47fec0942fa0">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: 
+                linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="euros" patternUnits="userSpaceOnUse" width="200" height="120"><rect width="200" height="120" fill="%23f8f9ff" opacity="0.05"/><g opacity="0.1"><rect x="10" y="10" width="180" height="80" rx="10" fill="%2300ff88" stroke="%23004d1a" stroke-width="2"/><text x="100" y="35" text-anchor="middle" fill="%23004d1a" font-size="12" font-weight="bold">BANQUE DE FRANCE</text><text x="100" y="65" text-anchor="middle" fill="%23004d1a" font-size="24" font-weight="bold">500€</text><circle cx="150" cy="30" r="8" fill="%23ffd700"/><circle cx="150" cy="50" r="6" fill="%23ffd700"/></g></pattern></defs><rect width="1200" height="800" fill="url(%23euros)"/></svg>');
+            min-height: 100vh;
+            color: #333;
+            position: relative;
+        }
+
+        .money-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .euro-bill {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+            border: 2px solid #004d1a;
+            border-radius: 5px;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        .euro-bill::after {
+            content: '€';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: #004d1a;
+            font-size: 16px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 1rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 140px auto 0;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: white;
+            position: relative;
+            padding: 3rem 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726, #ffd700);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #ff6b6b, #ffa726);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .tool-card h3 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .tool-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+            transform: scale(1.02);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            border-radius: 15px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #ffd700;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .banks-comparison {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #667eea;
+        }
+
+        .bank-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            background: linear-gradient(135deg, white 0%, #f8f9ff 100%);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .bank-card:hover {
+            transform: translateX(10px) scale(1.02);
+            border-color: #667eea;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .bank-info h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .bank-features {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .feature-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .rate {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            height: 350px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1rem;
+        }
+
+        .tips-section {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #ff6b6b;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(240, 147, 251, 0.4);
+        }
+
+        .tip-card h4 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Google Ads Containers */
+        .ad-container {
+            margin: 2rem 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1rem;
+            border: 2px dashed #ccc;
+        }
+
+        .premium-features {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .premium-features h3 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .feature-item h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+            z-index: 1001;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .bank-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="money-animation" id="moneyAnimation"></div>
+
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">💰 SABI FINANCES</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a onclick="showSection('home')">🏠 Accueil</a></li>
+                    <li><a onclick="showSection('budget')">📊 Budget</a></li>
+                    <li><a onclick="showSection('loan')">💰 Crédit</a></li>
+                    <li><a onclick="showSection('banks')">🏦 Banques</a></li>
+                    <li><a onclick="showSection('investment')">📈 Investissement</a></li>
+                    <li><a onclick="showSection('tips')">💡 Conseils</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Google Ads Top Banner -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6283676375456847"
+                 data-ad-slot="9554211338"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <div id="home" class="section active">
+            <div class="hero">
+                <h1>💰 SABI FINANCES</h1>
+                <p>🇫🇷 Votre Expert Finance Personnelle N°1 en France - Crédit, Épargne, Investissement</p>
+                <a href="#" class="cta-button" onclick="showSection('budget')">🚀 Commencer Gratuitement</a>
+            </div>
+
+            <div class="premium-features">
+                <h3>🎯 Outils Premium Gratuits</h3>
+                <p>Accédez aux meilleurs outils financiers utilisés par plus de 100,000+ Français</p>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <h4>🏦 Comparateur Banques</h4>
+                        <p>Économisez jusqu'à 500€/an sur vos frais bancaires</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>💰 Simulateur Crédit</h4>
+                        <p>Négociez le meilleur taux, économisez 15,000€</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📈 Optimisation Fiscale</h4>
+                        <p>Réduisez vos impôts de 30% légalement</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🛡️ Assurances Premium</h4>
+                        <p>Trouvez les meilleures couvertures -40%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>🏦 Comparateur Banques Premium</h3>
+                    <p><strong>🎯 Économisez jusqu'à 500€/an !</strong> Comparez BNP Paribas, Crédit Agricole, Société Générale, Boursorama. Paiements 3x, 4x, 6x sans frais selon les banques.</p>
+                    <button class="calculate-btn" onclick="showSection('banks')">🔍 Comparer maintenant</button>
+                </div>
+
+                <div class="tool-card">
+                    <h3>💰 Simulateur Crédit Immobilier Expert</h3>
+                    <p><strong>💡 Négociez votre taux !</strong> 0,5% de moins = 15,000€ d'économies sur 250k€. Simulation gratuite avec conseils de négociation bancaire.</p>
+                    <button class="calculate-btn" onclick="showSection('loan')">📊 Simuler mon prêt</button>
+                </div>
+
+                <div class="tool-card">
+                    <h3>📊 Budget Intelligent Pro</h3>
+                    <p><strong>🎯 Épargnez 20% de vos revenus !</strong> Outil de planification avec graphiques interactifs et conseils personnalisés d'optimisation.</p>
+                    <button class="calculate-btn" onclick="showSection('budget')">💡 Créer mon budget</button>
+                </div>
+
+                <div class="tool-card">
+                    <h3>📈 Investissement & Épargne 2024</h3>
+                    <p><strong>🚀 Rendements optimisés !</strong> Livret A 3%, Assurance vie, Actions, PER. Stratégies de diversification pour tous profils.</p>
+                    <button class="calculate-btn" onclick="showSection('investment')">💎 Investir intelligemment</button>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🛡️ Comparateur Assurances</h3>
+                    <p><strong>💰 -40% sur vos assurances !</strong> Vie, Auto, Habitation, Santé. Économisez 200€/an en comparant les meilleures offres françaises.</p>
+                    <button class="calculate-btn" onclick="showSection('tips')">🔍 Comparer assurances</button>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🎯 Défiscalisation 2024</h3>
+                    <p><strong>📉 Réduisez vos impôts de 30% !</strong> PER, FCPI, Pinel, Malraux. Optimisation fiscale légale jusqu'à 10,000€ d'économies.</p>
+                    <button class="calculate-btn" onclick="showSection('tips')">💡 Optimiser mes impôts</button>
+                </div>
+            </div>
+
+            <!-- Google Ads Middle -->
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6283676375456847"
+                     data-ad-slot="9554211338"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
+        <div id="budget" class="section hidden">
+            <div class="tool-card">
+                <h3>📊 Simulateur Budget Personnel Expert</h3>
+                <p><strong>🎯 Objectif : Épargner 20% de vos revenus !</strong></p>
+                
+                <div class="form-group">
+                    <label>💰 Revenus mensuels nets (€)</label>
+                    <input type="number" id="income" placeholder="3500">
+                </div>
+                <div class="form-group">
+                    <label>🏠 Logement (loyer/crédit immobilier) (€)</label>
+                    <input type="number" id="housing" placeholder="1200">
+                </div>
+                <div class="form-group">
+                    <label>🛒 Alimentation & Courses (€)</label>
+                    <input type="number" id="food" placeholder="400">
+                </div>
+                <div class="form-group">
+                    <label>🚗 Transport (essence, assurance auto) (€)</label>
+                    <input type="number" id="transport" placeholder="200">
+                </div>
+                <div class="form-group">
+                    <label>🎯 Loisirs & Divers (€)</label>
+                    <input type="number" id="others" placeholder="300">
+                </div>
+                <div class="form-group">
+                    <label>📱 Abonnements (mobile, internet, streaming) (€)</label>
+                    <input type="number" id="subscriptions" placeholder="80">
+                </div>
+                <button class="calculate-btn" onclick="calculateBudget()">📊 Analyser mon budget</button>
+                <div id="budget-result" class="result" style="display:none;"></div>
+                <div class="chart-container">
+                    <canvas id="budgetChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Google Ads in Budget Section -->
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6283676375456847"
+                     data-ad-slot="9554211338"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
+        <div id="loan" class="section hidden">
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>💰 Simulateur Crédit Immobilier Expert</h3>
+                    <p><strong>💡 Conseil Pro :</strong> Négociez votre taux ! 0,5% de moins = 15,000€ d'économies</p>
+                    
+                    <div class="form-group">
+                        <label>💰 Montant du prêt immobilier (€)</label>
+                        <input type="number" id="loanAmount" placeholder="250000">
+                    </div>
+                    <div class="form-group">
+                        <label>📈 Taux d'intérêt annuel (%)</label>
+                        <input type="number" id="interestRate" placeholder="3.5" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>⏱️ Durée du crédit</label>
+                        <select id="loanDuration">
+                            <option value="10">10 ans</option>
+                            <option value="15">15 ans</option>
+                            <option value="20" selected>20 ans</option>
+                            <option value="25">25 ans</option>
+                            <option value="30">30 ans</option>
+                        </select>
+                    </div>
+                    <button class="calculate-btn" onclick="calculateLoan()">📊 Calculer mes mensualités</button>
+                    <div id="loan-result" class="result" style="display:none;"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🏆 Meilleures Offres Crédit 2024</h3>
+                    <div class="bank-card">
+                        <div class="bank-info">
+                            <h4>🥇 Boursorama Banque</h4>
+                            <div class="bank-features">
+                                <span class="feature-tag">Taux négociable</span>
+                                <span class="feature-tag">Frais r
