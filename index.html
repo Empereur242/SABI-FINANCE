@@ -3,675 +3,1323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SABI FINANCES - Votre Expert Finance Personnelle</title>
-
+    <title>SABI FINANCES - Votre Partenaire Financier Premium</title>
+    <meta name="description" content="SABI FINANCES : Optimisez vos finances personnelles en France avec nos outils intelligents de budget, prêt, épargne et comparaison bancaire. Découvrez des guides, vidéos et conseils professionnels pour 2025.">
+    <meta name="keywords" content="finance personnelle, budget, prêt immobilier, comparateur banques, épargne, assurance, France, 2025, investissement">
+    <meta name="author" content="SABI FINANCES">
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "SABI FINANCES",
+      "description": "Outils intelligents et conseils professionnels pour la gestion financière en France.",
+      "url": "https://www.sabifinances.fr",
+      "logo": "https://www.sabifinances.fr/logo.png",
+      "areaServed": "FR",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "contact@sabifinances.fr",
+        "contactType": "customer support"
+      }
+    }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <!-- Google Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6283676375456847" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-6283676375456847">
-    
     <!-- Ads.txt -->
     <meta name="ads-txt-verification" content="google.com, pub-6283676375456847, DIRECT, f08c47fec0942fa0">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #e6ecf0 0%, #dfe9f3 100%);
             min-height: 100vh;
-            color: #333;
+            color: #1a202c;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .main-container {
+            flex: 1;
+            margin-top: 140px;
+            margin-bottom: 3rem;
+        }
+        .sidebar {
+            width: 320px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 140px;
+            margin-left: 2rem;
+            display: none;
+        }
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
         }
-
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 2rem;
         }
-
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #2b6cb0, #9f7aea);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
         }
-
         .nav-links a {
             text-decoration: none;
-            color: #333;
+            color: #1a202c;
             font-weight: 500;
-            transition: color 0.3s ease;
+            font-size: 1.1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
             cursor: pointer;
         }
-
         .nav-links a:hover {
-            color: #667eea;
+            color: #2b6cb0;
+            transform: translateY(-2px);
         }
-
-        .main-container {
-            max-width: 1200px;
-            margin: 120px auto 0;
-            padding: 0 2rem;
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #1a202c;
         }
-
         .hero {
             text-align: center;
             margin-bottom: 4rem;
-            color: white;
+            color: #1a202c;
+            background: url('https://images.unsplash.com/photo-1556740714-5f3e7e8e6b8c') no-repeat center center/cover;
+            padding: 5rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
         }
-
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        .hero h1, .hero p, .hero .cta-button {
+            position: relative;
+            z-index: 2;
+        }
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
         }
-
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
             opacity: 0.9;
-            margin-bottom: 2rem;
         }
-
         .cta-button {
-            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            background: linear-gradient(45deg, #d69e2e, #b7791f);
             color: white;
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border: none;
             border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            position: relative;
+            overflow: hidden;
         }
-
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(214, 158, 46, 0.3);
+            background: linear-gradient(45deg, #b7791f, #d69e2e);
         }
-
+        .cta-button::after {
+            content: '→';
+            margin-left: 0.5rem;
+            transition: margin-left 0.3s ease;
+        }
+        .cta-button:hover::after {
+            margin-left: 1rem;
+        }
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-bottom: 4rem;
         }
-
         .tool-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            background: white;
+            border-radius: 15px;
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-
         .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
         }
-
-        .tool-card h3 {
-            color: #667eea;
+        .tool-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            transition: transform 0.3s ease;
         }
-
+        .tool-card:hover img {
+            transform: scale(1.05);
+        }
+        .tool-card h3 {
+            color: #2b6cb0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
         .form-group {
             margin-bottom: 1.5rem;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            color: #555;
+            color: #1a202c;
         }
-
         .form-group input, .form-group select {
             width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #e0e0e0;
+            padding: 0.9rem;
+            border: 2px solid #e2e8f0;
             border-radius: 10px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-
         .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #2b6cb0;
+            box-shadow: 0 0 8px rgba(43, 108, 176, 0.2);
         }
-
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
         .calculate-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #2b6cb0, #9f7aea);
             color: white;
-            padding: 0.8rem 1.5rem;
+            padding: 0.9rem 1.8rem;
             border: none;
             border-radius: 10px;
-            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease;
             width: 100%;
+            position: relative;
+            overflow: hidden;
         }
-
         .calculate-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            background: linear-gradient(45deg, #9f7aea, #2b6cb0);
         }
-
+        .calculate-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+        .calculate-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid white;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
         .result {
             margin-top: 1.5rem;
-            padding: 1rem;
-            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            padding: 1.5rem;
+            background: linear-gradient(45deg, #edf2f7, #cbd5e0);
             border-radius: 10px;
-            font-weight: bold;
+            font-weight: 600;
             text-align: center;
+            animation: fadeIn 0.5s ease;
         }
-
-        .banks-comparison {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
+        .banks-comparison, .guides-section, .tips-section, .faq-section, .glossary-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
         .bank-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem;
             margin: 1rem 0;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: #f7fafc;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
-
         .bank-card:hover {
-            transform: translateX(5px);
+            transform: translateX(6px);
         }
-
         .bank-info h4 {
-            color: #667eea;
+            color: #2b6cb0;
+            font-family: 'Montserrat', sans-serif;
             margin-bottom: 0.5rem;
         }
-
         .bank-features {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
         }
-
         .feature-tag {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #2b6cb0, #9f7aea);
             color: white;
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
-
         .rate {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff6b6b;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #e53e3e;
         }
-
         .chart-container {
             margin-top: 2rem;
-            height: 300px;
+            height: 320px;
             position: relative;
         }
-
-        .tips-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .tip-card {
-            background: linear-gradient(45deg, #f093fb, #f5576c);
+        .tip-card, .guide-card, .faq-item {
+            background: linear-gradient(45deg, #f56565, #c53030);
             color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1rem 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.8rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
         }
-
+        .tip-card:hover, .guide-card:hover, .faq-item:hover {
+            transform: translateY(-4px);
+        }
+        .glossary-item {
+            margin-bottom: 1.5rem;
+        }
+        .glossary-item h4 {
+            color: #2b6cb0;
+            font-family: 'Montserrat', sans-serif;
+        }
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
-
-        .comparison-table th,
-        .comparison-table td {
-            padding: 1rem;
+        .comparison-table th, .comparison-table td {
+            padding: 1.2rem;
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e2e8f0;
         }
-
         .comparison-table th {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #2b6cb0, #9f7aea);
             color: white;
+            font-family: 'Montserrat', sans-serif;
         }
-
         .highlight {
-            background: linear-gradient(45deg, #a8edea, #fed6e3);
-            font-weight: bold;
+            background: linear-gradient(45deg, #edf2f7, #cbd5e0);
+            font-weight: 600;
         }
-
+        .ad-unit {
+            margin: 3rem 0;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .header-ad {
+            text-align: center;
+            margin: 1.5rem 0;
+            max-width: 728px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .floating-video {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 180px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .floating-video.active {
+            display: block;
+        }
+        .floating-video iframe {
+            width: 100%;
+            height: 100%;
+        }
+        .floating-video-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #2b6cb0, #9f7aea);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .floating-video-toggle:hover {
+            background: linear-gradient(45deg, #9f7aea, #2b6cb0);
+        }
+        .assistant-widget {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #2b6cb0;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-width: 300px;
+            display: none;
+        }
+        .assistant-widget.active {
+            display: block;
+        }
+        footer {
+            background: white;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            color: #1a202c;
+            font-size: 1rem;
+        }
+        footer a {
+            color: #2b6cb0;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+            }
+        }
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
-            
             .tools-grid {
                 grid-template-columns: 1fr;
             }
-            
             .nav-links {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 1.5rem;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .floating-video {
+                width: 280px;
+                height: 158px;
             }
         }
-
         .hidden {
             display: none;
         }
-
         .active {
             display: block;
         }
     </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header" role="banner">
+        <div class="header-ad">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6283676375456847"
+                 data-ad-slot="1112223334"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
         <div class="nav-container">
             <div class="logo">SABI FINANCES</div>
-            <nav>
+            <nav aria-label="Navigation principale">
+                <i class="fas fa-bars hamburger" onclick="toggleMenu()" aria-label="Ouvrir le menu"></i>
                 <ul class="nav-links">
-                    <li><a onclick="showSection('home')">Accueil</a></li>
+                    <li><a onclick="showSection('home')" aria-current="page">Accueil</a></li>
                     <li><a onclick="showSection('budget')">Budget</a></li>
                     <li><a onclick="showSection('loan')">Crédit</a></li>
+                    <li><a onclick="showSection('savings')">Épargne</a></li>
                     <li><a onclick="showSection('banks')">Banques</a></li>
+                    <li><a onclick="showSection('guides')">Guides</a></li>
                     <li><a onclick="showSection('tips')">Conseils</a></li>
+                    <li><a onclick="showSection('faq')">FAQ</a></li>
+                    <li><a onclick="showSection('glossary')">Glossaire</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-
-    <main class="main-container">
-        <div id="home" class="section active">
-            <div class="hero">
-                <h1>SABI FINANCES</h1>
-                <p>Votre partenaire de confiance pour optimiser vos finances personnelles en France</p>
-                <a href="#" class="cta-button" onclick="showSection('budget')">Commencer maintenant</a>
-            </div>
-
-            <div class="tools-grid">
+    <div class="container">
+        <main class="main-container" role="main">
+            <!-- Home Section -->
+            <section id="home" class="section active" aria-labelledby="home-title">
+                <div class="hero">
+                    <h1 id="home-title">SABI FINANCES</h1>
+                    <p>Votre partenaire premium pour optimiser vos finances personnelles en France. Découvrez des outils intelligents, des guides détaillés, et des conseils d’experts pour atteindre vos objectifs financiers en 2025.</p>
+                    <a href="#" class="cta-button" onclick="showSection('budget')">Commencer maintenant</a>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Comparateur de banques">
+                        <h3><i class="fas fa-university"></i> Comparateur de Banques</h3>
+                        <p>Comparez les meilleures offres bancaires françaises : BNP Paribas, Crédit Agricole, Boursorama, et plus encore.</p>
+                        <button class="calculate-btn" onclick="showSection('banks')" aria-label="Comparer les banques">Comparer maintenant</button>
+                    </div>
+                    <div class="tool-card">
+                        <img src="https://images.unsplash.com/photo-1551288049-b1b3a0c3f3e7" alt="Simulateur de prêt">
+                        <h3><i class="fas fa-hand-holding-usd"></i> Simulateur de Prêt</h3>
+                        <p>Calculez vos mensualités et trouvez le meilleur taux pour votre crédit immobilier ou personnel.</p>
+                        <button class="calculate-btn" onclick="showSection('loan')" aria-label="Simuler un prêt">Simuler un prêt</button>
+                    </div>
+                    <div class="tool-card">
+                        <img src="https://images.unsplash.com/photo-1556740714-5f3e7e8e6b8c" alt="Planificateur de budget">
+                        <h3><i class="fas fa-chart-pie"></i> Planificateur de Budget</h3>
+                        <p>Gérez vos revenus et dépenses avec notre outil intelligent pour une planification optimale.</p>
+                        <button class="calculate-btn" onclick="showSection('budget')" aria-label="Créer un budget">Créer mon budget</button>
+                    </div>
+                    <div class="tool-card">
+                        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236ad" alt="Simulateur d'épargne">
+                        <h3><i class="fas fa-piggy-bank"></i> Calculateur d'Épargne</h3>
+                        <p>Planifiez vos objectifs d’épargne avec notre simulateur pour réaliser vos projets financiers.</p>
+                        <button class="calculate-btn" onclick="showSection('savings')" aria-label="Simuler une épargne">Simuler mon épargne</button>
+                    </div>
+                </div>
+                <div class="ad-unit">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-6283676375456847"
+                         data-ad-slot="1234567890"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </section>
+            <!-- Budget Section -->
+            <section id="budget" class="section hidden" aria-labelledby="budget-title">
                 <div class="tool-card">
-                    <h3>🏦 Comparateur de Banques</h3>
-                    <p>Comparez les meilleures offres bancaires françaises : BNP Paribas, Crédit Agricole, Société Générale, et plus encore.</p>
-                    <button class="calculate-btn" onclick="showSection('banks')">Comparer maintenant</button>
+                    <img src="https://images.unsplash.com/photo-1556740714-5f3e7e8e6b8c" alt="Budget personnel">
+                    <h3 id="budget-title"><i class="fas fa-chart-pie"></i> Simulateur de Budget Personnel</h3>
+                    <div class="form-group">
+                        <label for="income">Revenus mensuels nets (€)</label>
+                        <input type="number" id="income" placeholder="3500" min="0" step="0.01" required>
+                        <div class="error-message" id="income-error">Veuillez entrer un montant valide (non négatif).</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="housing">Logement (loyer/crédit) (€)</label>
+                        <input type="number" id="housing" placeholder="1200" min="0" step="0.01" required>
+                        <div class="error-message" id="housing-error">Veuillez entrer un montant valide (non négatif).</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="food">Alimentation (€)</label>
+                        <input type="number" id="food" placeholder="400" min="0" step="0.01" required>
+                        <div class="error-message" id="food-error">Veuillez entrer un montant valide (non négatif).</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="transport">Transport (€)</label>
+                        <input type="number" id="transport" placeholder="200" min="0" step="0.01" required>
+                        <div class="error-message" id="transport-error">Veuillez entrer un montant valide (non négatif).</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="leisure">Loisirs (€)</label>
+                        <input type="number" id="leisure" placeholder="150" min="0" step="0.01" required>
+                        <div class="error-message" id="leisure-error">Veuillez entrer un montant valide (non négatif).</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="others">Autres dépenses (€)</label>
+                        <input type="number" id="others" placeholder="300" min="0" step="0.01" required>
+                        <div class="error-message" id="others-error">Veuillez entrer un montant valide (non négatif).</div>
+                    </div>
+                    <button class="calculate-btn" onclick="calculateBudget()" aria-label="Analyser le budget">Analyser mon budget</button>
+                    <button class="calculate-btn" onclick="saveResults('budget-result')" style="margin-top: 1rem; background: #718096;">Sauvegarder les résultats</button>
+                    <div id="budget-result" class="result" style="display:none;"></div>
+                    <div class="chart-container">
+                        <canvas id="budgetChart" aria-label="Graphique de répartition du budget"></canvas>
+                    </div>
                 </div>
-
+                <div class="ad-unit">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-6283676375456847"
+                         data-ad-slot="4445556667"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </section>
+            <!-- Loan Section -->
+            <section id="loan" class="section hidden" aria-labelledby="loan-title">
                 <div class="tool-card">
-                    <h3>💰 Simulateur de Prêt</h3>
-                    <p>Calculez vos mensualités et trouvez le meilleur taux pour votre crédit immobilier ou personnel.</p>
-                    <button class="calculate-btn" onclick="showSection('loan')">Simuler un prêt</button>
+                    <img src="https://images.unsplash.com/photo-1551288049-b1b3a0c3f3e7" alt="Prêt immobilier">
+                    <h3 id="loan-title"><i class="fas fa-hand-holding-usd"></i> Simulateur de Prêt Immobilier</h3>
+                    <div class="form-group">
+                        <label for="loanAmount">Montant du prêt (€)</label>
+                        <input type="number" id="loanAmount" placeholder="250000" min="0" step="0.01" required>
+                        <div class="error-message" id="loanAmount-error">Veuillez entrer un montant valide (non négatif).</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="interestRate">Taux d'intérêt annuel (%)</label>
+                        <input type="number" id="interestRate" placeholder="3.5" step="0.1" min="0" required>
+                        <div class="error-message" id="interestRate-error">Veuillez entrer un taux valide (non négatif).</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanDuration">Durée (années)</label>
+                        <select id="loanDuration" required>
+                            <option value="10">10 ans</option>
+                            <option value="15">15 ans</option>
+                            <option value="20" selected>20 ans</option>
+                            <option value="25">25 ans</option>
+                            <option value="30">30 ans</option>
+                        </select>
+                    </div>
+                    <button class="calculate-btn" onclick="calculateLoan()" aria-label="Calculer les mensualités">Calculer les mensualités</button>
+                    <button class="calculate-btn" onclick="saveResults('loan-result')" style="margin-top: 1rem; background: #718096;">Sauvegarder les résultats</button>
+                    <div id="loan-result" class="result" style="display:none;"></div>
                 </div>
-
+            </section>
+            <!-- Savings Section -->
+            <section id="savings" class="section hidden" aria-labelledby="savings-title">
                 <div class="tool-card">
-                    <h3>📊 Planificateur de Budget</h3>
-                    <p>Gérez vos revenus et dépenses avec notre outil intelligent de planification budgétaire.</p>
-                    <button class="calculate-btn" onclick="showSection('budget')">Créer mon budget</button>
-                </div>
-
-                <div class="tool-card">
-                    <h3>🛡️ Comparateur d'Assurance</h3>
-                    <p>Trouvez la meilleure assurance vie, auto, habitation aux tarifs les plus compétitifs.</p>
-                    <button class="calculate-btn" onclick="showSection('tips')">Comparer les assurances</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="budget" class="section hidden">
-            <div class="tool-card">
-                <h3>📊 Simulateur de Budget Personnel</h3>
-                <div class="form-group">
-                    <label>Revenus mensuels nets (€)</label>
-                    <input type="number" id="income" placeholder="3500">
-                </div>
-                <div class="form-group">
-                    <label>Logement (loyer/crédit) (€)</label>
-                    <input type="number" id="housing" placeholder="1200">
-                </div>
-                <div class="form-group">
-                    <label>Alimentation (€)</label>
-                    <input type="number" id="food" placeholder="400">
-                </div>
-                <div class="form-group">
-                    <label>Transport (€)</label>
-                    <input type="number" id="transport" placeholder="200">
-                </div>
-                <div class="form-group">
-                    <label>Autres dépenses (€)</label>
-                    <input type="number" id="others" placeholder="300">
-                </div>
-                <button class="calculate-btn" onclick="calculateBudget()">Analyser mon budget</button>
-                <div id="budget-result" class="result" style="display:none;"></div>
-                <div class="chart-container">
-                    <canvas id="budgetChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div id="loan" class="section hidden">
-            <div class="tool-card">
-                <h3>💰 Simulateur de Prêt Immobilier</h3>
-                <div class="form-group">
-                    <label>Montant du prêt (€)</label>
-                    <input type="number" id="loanAmount" placeholder="250000">
-                </div>
-                <div class="form-group">
-                    <label>Taux d'intérêt annuel (%)</label>
-                    <input type="number" id="interestRate" placeholder="3.5" step="0.1">
-                </div>
-                <div class="form-group">
-                    <label>Durée (années)</label>
-                    <select id="loanDuration">
-                        <option value="10">10 ans</option>
-                        <option value="15">15 ans</option>
-                        <option value="20" selected>20 ans</option>
-                        <option value="25">25 ans</option>
-                        <option value="30">30 ans</option>
-                    </select>
-                </div>
-                <button class="calculate-btn" onclick="calculateLoan()">Calculer les mensualités</button>
-                <div id="loan-result" class="result" style="display:none;"></div>
-            </div>
-        </div>
-
-        <div id="banks" class="section hidden">
-            <div class="banks-comparison">
-                <h3>🏦 Comparaison des Meilleures Banques Françaises</h3>
-                
-                <div class="bank-card">
-                    <div class="bank-info">
-                        <h4>BNP Paribas</h4>
-                        <div class="bank-features">
-                            <span class="feature-tag">Carte gratuite</span>
-                            <span class="feature-tag">Paiement 3x sans frais</span>
-                            <span class="feature-tag">Livret A 3%</span>
-                        </div>
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236ad" alt="Épargne">
+                    <h3 id="savings-title"><i class="fas fa-piggy-bank"></i> Simulateur d'Épargne</h3>
+                    <div class="form-group">
+                        <label for="initialSavings">Montant initial (€)</label>
+                        <input type="number" id="initialSavings" placeholder="1000" min="0" step="0.01" required>
+                        <div class="error-message" id="initialSavings-error">Veuillez entrer un montant valide (non négatif).</div>
                     </div>
-                    <div class="rate">0,5% frais</div>
-                </div>
-
-                <div class="bank-card">
-                    <div class="bank-info">
-                        <h4>Crédit Agricole</h4>
-                        <div class="bank-features">
-                            <span class="feature-tag">Assurance gratuite</span>
-                            <span class="feature-tag">Paiement 4x</span>
-                            <span class="feature-tag">Crédit auto 2,9%</span>
-                        </div>
+                    <div class="form-group">
+                        <label for="monthlySavings">Contribution mensuelle (€)</label>
+                        <input type="number" id="monthlySavings" placeholder="200" min="0" step="0.01" required>
+                        <div class="error-message" id="monthlySavings-error">Veuillez entrer un montant valide (non négatif).</div>
                     </div>
-                    <div class="rate">0,3% frais</div>
-                </div>
-
-                <div class="bank-card">
-                    <div class="bank-info">
-                        <h4>Société Générale</h4>
-                        <div class="bank-features">
-                            <span class="feature-tag">Découvert autorisé</span>
-                            <span class="feature-tag">Paiement 6x</span>
-                            <span class="feature-tag">PEL 2,2%</span>
-                        </div>
+                    <div class="form-group">
+                        <label for="savingsRate">Taux d'intérêt annuel (%)</label>
+                        <input type="number" id="savingsRate" placeholder="3.0" step="0.1" min="0" required>
+                        <div class="error-message" id="savingsRate-error">Veuillez entrer un taux valide (non négatif).</div>
                     </div>
-                    <div class="rate">0,4% frais</div>
-                </div>
-
-                <div class="bank-card">
-                    <div class="bank-info">
-                        <h4>LCL</h4>
-                        <div class="bank-features">
-                            <span class="feature-tag">Jeunes -26 ans</span>
-                            <span class="feature-tag">Paiement 12x</span>
-                            <span class="feature-tag">Épargne 3,5%</span>
-                        </div>
+                    <div class="form-group">
+                        <label for="savingsDuration">Durée (années)</label>
+                        <select id="savingsDuration" required>
+                            <option value="5">5 ans</option>
+                            <option value="10" selected>10 ans</option>
+                            <option value="15">15 ans</option>
+                            <option value="20">20 ans</option>
+                        </select>
                     </div>
-                    <div class="rate">0,2% frais</div>
+                    <button class="calculate-btn" onclick="calculateSavings()" aria-label="Calculer l'épargne">Calculer mon épargne</button>
+                    <button class="calculate-btn" onclick="saveResults('savings-result')" style="margin-top: 1rem; background: #718096;">Sauvegarder les résultats</button>
+                    <div id="savings-result" class="result" style="display:none;"></div>
                 </div>
-
-                <div class="bank-card">
-                    <div class="bank-info">
-                        <h4>Boursorama Banque</h4>
-                        <div class="bank-features">
-                            <span class="feature-tag">100% en ligne</span>
-                            <span class="feature-tag">Paiement différé</span>
-                            <span class="feature-tag">0€ frais bancaires</span>
-                        </div>
+            </section>
+            <!-- Banks Section -->
+            <section id="banks" class="section hidden" aria-labelledby="banks-title">
+                <div class="banks-comparison">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Comparaison bancaire">
+                    <h3 id="banks-title"><i class="fas fa-university"></i> Comparaison des Meilleures Banques Françaises</h3>
+                    <div class="form-group">
+                        <label for="bankFilter">Filtrer par type de banque</label>
+                        <select id="bankFilter" onchange="filterBanks()">
+                            <option value="all">Toutes</option>
+                            <option value="traditional">Banques traditionnelles</option>
+                            <option value="online">Banques en ligne</option>
+                        </select>
                     </div>
-                    <div class="rate">0% frais</div>
+                    <div class="bank-card" data-type="traditional">
+                        <div class="bank-info">
+                            <h4>BNP Paribas</h4>
+                            <p>Leader en France avec un réseau étendu d’agences et des services premium.</p>
+                            <div class="bank-features">
+                                <span class="feature-tag">Carte gratuite</span>
+                                <span class="feature-tag">Paiement 3x sans frais</span>
+                                <span class="feature-tag">Livret A 3%</span>
+                            </div>
+                        </div>
+                        <div class="rate">0,5% frais</div>
+                    </div>
+                    <div class="bank-card" data-type="traditional">
+                        <div class="bank-info">
+                            <h4>Crédit Agricole</h4>
+                            <p>Solutions adaptées pour agriculteurs, particuliers et professionnels.</p>
+                            <div class="bank-features">
+                                <span class="feature-tag">Assurance gratuite</span>
+                                <span class="feature-tag">Paiement 4x</span>
+                                <span class="feature-tag">Crédit auto 2,9%</span>
+                            </div>
+                        </div>
+                        <div class="rate">0,3% frais</div>
+                    </div>
+                    <div class="bank-card" data-type="traditional">
+                        <div class="bank-info">
+                            <h4>Société Générale</h4>
+                            <p>Services premium pour clients exigeants, avec options de découvert avantageuses.</p>
+                            <div class="bank-features">
+                                <span class="feature-tag">Découvert autorisé</span>
+                                <span class="feature-tag">Paiement 6x</span>
+                                <span class="feature-tag">PEL 2,2%</span>
+                            </div>
+                        </div>
+                        <div class="rate">0,4% frais</div>
+                    </div>
+                    <div class="bank-card" data-type="traditional">
+                        <div class="bank-info">
+                            <h4>LCL</h4>
+                            <p>Idéal pour les jeunes et étudiants avec des offres spécifiques.</p>
+                            <div class="bank-features">
+                                <span class="feature-tag">Jeunes -26 ans</span>
+                                <span class="feature-tag">Paiement 12x</span>
+                                <span class="feature-tag">Épargne 3,5%</span>
+                            </div>
+                        </div>
+                        <div class="rate">0,2% frais</div>
+                    </div>
+                    <div class="bank-card" data-type="online">
+                        <div class="bank-info">
+                            <h4>Boursorama Banque</h4>
+                            <p>100% en ligne avec frais réduits et services numériques avancés.</p>
+                            <div class="bank-features">
+                                <span class="feature-tag">100% en ligne</span>
+                                <span class="feature-tag">Paiement différé</span>
+                                <span class="feature-tag">0€ frais bancaires</span>
+                            </div>
+                        </div>
+                        <div class="rate">0%</div>
+                    </div>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Banque</th>
+                                <th>Frais de tenue</th>
+                                <th>Carte bancaire</th>
+                                <th>Paiement fractionné</th>
+                                <th>Taux épargne</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BNP Paribas</td>
+                                <td>5€/mois</td>
+                                <td class="highlight">Gratuite</td>
+                                <td>3x sans frais</td>
+                                <td class="highlight">3,0%</td>
+                            </tr>
+                            <tr>
+                                <td>Crédit Agricole</td>
+                                <td>3€/mois</td>
+                                <td>2€/mois</td>
+                                <td>4x avec frais</td>
+                                <td>2,8%</td>
+                            </tr>
+                            <tr>
+                                <td>Boursorama</td>
+                                <td class="highlight">0€</td>
+                                <td class="highlight">Gratuite</td>
+                                <td>Différé gratuit</td>
+                                <td>2,5%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="ad-unit">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-6283676375456847"
+                             data-ad-slot="7778889990"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
                 </div>
-
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Banque</th>
-                            <th>Frais de tenue</th>
-                            <th>Carte bancaire</th>
-                            <th>Paiement fractionné</th>
-                            <th>Taux épargne</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>BNP Paribas</td>
-                            <td>5€/mois</td>
-                            <td>Gratuite</td>
-                            <td>3x sans frais</td>
-                            <td class="highlight">3,0%</td>
-                        </tr>
-                        <tr>
-                            <td>Crédit Agricole</td>
-                            <td>3€/mois</td>
-                            <td>2€/mois</td>
-                            <td>4x avec frais</td>
-                            <td>2,8%</td>
-                        </tr>
-                        <tr>
-                            <td>Boursorama</td>
-                            <td class="highlight">0€</td>
-                            <td class="highlight">Gratuite</td>
-                            <td>Différé gratuit</td>
-                            <td>2,5%</td>
-                        </tr>
-                    </tbody>
-                </table>
+            </section>
+            <!-- Guides Section -->
+            <section id="guides" class="section hidden" aria-labelledby="guides-title">
+                <div class="guides-section">
+                    <h3 id="guides-title"><i class="fas fa-book"></i> Guides Financiers Exclusifs</h3>
+                    <p>Découvrez nos guides détaillés pour maîtriser vos finances personnelles en 2025 avec des stratégies éprouvées et des études de cas.</p>
+                    <div class="guide-card">
+                        <img src="https://images.unsplash.com/photo-1556740714-5f3e7e8e6b8c" alt="Gestion budgétaire">
+                        <h4>Établir un Budget Efficace en 2025</h4>
+                        <p>Adoptez la règle 50-30-20 pour une gestion optimale : 50% pour les besoins essentiels (loyer, factures), 30% pour les envies (loisirs, sorties), et 20% pour l’épargne. Exemple : avec un revenu net de 3 500 €, allouez 1 750 € aux besoins, 1 050 € aux envies, et 700 € à l’épargne. Étude de cas : Marie, 30 ans, a économisé 2 400 €/an en réduisant ses abonnements streaming et repas à l’extérieur.</p>
+                        <p><strong>Étapes clés :</strong></p>
+                        <ul>
+                            <li>Calculez vos revenus nets mensuels après impôts.</li>
+                            <li>Classez vos dépenses en catégories (essentielles, secondaires, épargne).</li>
+                            <li>Fixez des objectifs d’épargne réalistes (10-20% des revenus).</li>
+                            <li>Utilisez notre simulateur pour ajuster vos dépenses en temps réel.</li>
+                            <li>Revoyez votre budget tous les 3 mois pour l’optimiser.</li>
+                        </ul>
+                        <p><a href="#" class="cta-button">Lire la suite</a></p>
+                    </div>
+                    <div class="guide-card">
+                        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236ad" alt="Investissement">
+                        <h4>Investir en France : Guide Complet 2025</h4>
+                        <p>Investir est à la portée de tous avec une stratégie adaptée. Le Livret A offre 3% sans risque, mais pour des rendements supérieurs, optez pour l’assurance vie (3-5%) ou les ETF (7-10% à long terme). Étude de cas : Paul, 35 ans, investit 200 €/mois dans un ETF CAC 40 à 7% depuis 5 ans, atteignant 14 000 € en 2025. Diversifiez : 50% Livret A, 30% assurance vie, 20% actions.</p>
+                        <p><strong>Conseils clés :</strong></p>
+                        <ul>
+                            <li>Commencez avec des ETF à faibles frais (0,2-0,5%).</li>
+                            <li>Automatisez vos investissements mensuels pour lisser les fluctuations.</li>
+                            <li>Consultez un conseiller pour les produits complexes (SCPI, crypto).</li>
+                            <li>Suivez les secteurs porteurs en 2025 (énergie verte, tech).</li>
+                            <li>Surveillez les frais de gestion (1% max).</li>
+                        </ul>
+                    </div>
+                    <div class="guide-card">
+                        <img src="https://images.unsplash.com/photo-1551288049-b1b3a0c3f3e7" alt="Optimisation fiscale">
+                        <h4>Optimisation Fiscale 2025 : Réduisez vos Impôts</h4>
+                        <p>Le Plan Épargne Retraite (PER) permet une déduction fiscale jusqu’à 35 194 € en 2024. Exemple : avec un revenu imposable de 50 000 €, un versement de 10 000 € sur un PER réduit votre impôt de 3 000 €. Autres options : dons aux associations (66% de réduction) et investissement PME (25% de crédit d’impôt). Étude de cas : Sophie, 40 ans, a économisé 5 000 € d’impôts en combinant PER et dons.</p>
+                        <p><strong>Actions recommandées :</strong></p>
+                        <ul>
+                            <li>Ouvrez un PER avant le 31 décembre 2025.</li>
+                            <li>Comparez les frais de gestion des PER (0,5-1%).</li>
+                            <li>Simulez votre réduction fiscale avec notre outil.</li>
+                            <li>Explorez le dispositif Pinel pour l’immobilier locatif.</li>
+                            <li>Planifiez vos dons dès janvier pour maximiser les avantages.</li>
+                        </ul>
+                    </div>
+                    <div class="guide-card">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Choix de banque">
+                        <h4>Choisir la Bonne Banque en 2025</h4>
+                        <p>Le choix d’une banque impacte vos finances. Les banques en ligne (Boursorama, N26) offrent 0 € de frais, tandis que les banques traditionnelles (BNP Paribas, Crédit Agricole) proposent des services en agence. Exemple : passer à Boursorama peut économiser 100 €/an. Étude de cas : Julien, 28 ans, a réduit ses frais de 120 €/an en optant pour une banque en ligne.</p>
+                        <p><strong>Étapes pour choisir :</strong></p>
+                        <ul>
+                            <li>Évaluez vos besoins (comptes, crédits, épargne).</li>
+                            <li>Comparez les frais de tenue et de carte bancaire.</li>
+                            <li>Vérifiez les taux d’épargne (Livret A, PEL).</li>
+                            <li>Lisez les avis clients sur la qualité du service.</li>
+                            <li>Testez l’application mobile pour la facilité d’utilisation.</li>
+                        </ul>
+                    </div>
+                    <div class="ad-unit">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-6283676375456847"
+                             data-ad-slot="9876543210"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            </section>
+            <!-- Tips Section -->
+            <section id="tips" class="section hidden" aria-labelledby="tips-title">
+                <div class="tips-section">
+                    <h3 id="tips-title"><i class="fas fa-lightbulb"></i> Conseils Financiers Pratiques</h3>
+                    <p>Des astuces actionnables pour optimiser votre gestion financière au quotidien.</p>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-piggy-bank"></i> Épargne Optimisée</h4>
+                        <p>Diversifiez vos placements : 50% Livret A (3%), 30% assurance vie (3-5%), 20% ETF. Gardez 6-12 mois de dépenses en épargne de précaution pour faire face aux imprévus.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-home"></i> Crédit Immobilier</h4>
+                        <p>Négociez votre taux ! Réduire de 4% à 3,2% sur un prêt de 250 000 € sur 20 ans économise 15 000 €. Comparez 3-5 offres et utilisez un courtier.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-credit-card"></i> Gestion des Cartes</h4>
+                        <p>Utilisez les paiements en 3x sans frais pour les gros achats. Évitez les 4x+ avec frais cachés (jusqu’à 2%). Les banques en ligne offrent 0 € de frais bancaires.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-shield-alt"></i> Assurances Essentielles</h4>
+                        <p>Assurance vie : choisissez des fonds euros à 3%+ garantis. Assurance habitation : comparez pour économiser 150-200 €/an avec une couverture équivalente.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-chart-line"></i> Investir dans les ETF</h4>
+                        <p>Investir 100 €/mois dans un ETF à 7% sur 20 ans peut atteindre 50 000 €. Privilégiez les ETF à faibles frais (0,2%) comme ceux sur le CAC 40 ou MSCI World.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-money-bill-wave"></i> Réduire les Dépenses</h4>
+                        <p>Analysez vos abonnements (Netflix, Spotify, gym) et supprimez les inutiles. Exemple : résilier un abonnement de 15 €/mois économise 180 €/an.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fas fa-hand-holding-heart"></i> Fonds d’Urgence</h4>
+                        <p>Constituez un fonds d’urgence équivalent à 3-6 mois de dépenses sur un Livret A. Exemple : pour 2 000 €/mois de dépenses, visez 6 000-12 000 €.</p>
+                    </div>
+                </section>
+                <!-- FAQ Section -->
+                <section id="faq" class="section hidden" aria-labelledby="faq-title">
+                    <div class="faq-section">
+                        <h3 id="faq-title"><i class="fas fa-question-circle"></i> Foire Aux Questions</h3>
+                        <p>Réponses aux questions fréquentes pour mieux gérer vos finances.</p>
+                        <div class="faq-item">
+                            <h4>Quel est le meilleur compte d’épargne en 2025 ?</h4>
+                            <p>Le Livret A offre 3% exonéré d’impôts, idéal pour une épargne de précaution. Pour des rendements supérieurs, l’assurance vie (3-5%) ou les ETF (7-10%) sont recommandés, selon votre tolérance au risque.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4>Comment négocier un prêt immobilier ?</h4>
+                            <p>Présentez un dossier solide : revenus stables, apport de 10-20%, endettement <33%. Comparez 3-5 banques et engagez un courtier pour obtenir un taux sous 3,5%.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4>Qu’est-ce que le PER et comment en profiter ?</h4>
+                            <p>Le Plan Épargne Retraite (PER) permet de déduire jusqu’à 35 194 € de vos revenus imposables en 2024. Ouvrez un PER avant fin 2025 pour réduire vos impôts.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4>Pourquoi choisir une banque en ligne ?</h4>
+                            <p>Les banques en ligne (Boursorama, N26) offrent 0 € de frais de tenue, des applications intuitives, et des services numériques avancés. Parfait pour une gestion autonome.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4>Comment diversifier mes investissements ?</h4>
+                            <p>Répartissez vos placements : 50% produits sans risque (Livret A, fonds euros), 30% assurance vie, 20% ETF ou actions. Évitez de mettre plus de 20% dans un seul actif risqué.</p>
+                        </div>
+                    </section>
+                    <!-- Glossary Section -->
+                    <section id="glossary" class="section hidden" aria-labelledby="glossary-title">
+                        <div class="glossary-section">
+                            <h3 id="glossary-title"><i class="fas fa-book"></i> Glossaire Financier</h3>
+                            <p>Maîtrisez les termes financiers essentiels pour prendre des décisions éclairées.</p>
+                            <div class="glossary-item">
+                                <h4>Livret A</h4>
+                                <p>Compte d’épargne réglementé offrant 3% d’intérêt en 2025, exonéré d’impôts. Plafond : 22 950 €.</p>
+                            </div>
+                            <div class="glossary-item">
+                                <h4>Assurance Vie</h4>
+                                <p>Produit d’épargne à long terme avec fonds euros (3-5%) ou unités de compte pour investir en actions/obligations.</p>
+                            </div>
+                            <div class="glossary-item">
+                                <h4>PER (Plan Épargne Retraite)</h4>
+                                <p>Épargne retraite avec déduction fiscale jusqu’à 35 194 € en 2024. Idéal pour réduire vos impôts.</p>
+                            </div>
+                            <div class="glossary-item">
+                                <h4>ETF (Exchange-Traded Fund)</h4>
+                                <p>Fonds négocié en bourse suivant un indice (ex. : CAC 40), avec frais faibles (0,2-0,5%) et diversification.</p>
+                            </div>
+                            <div class="glossary-item">
+                                <h4>PEL (Plan Épargne Logement)</h4>
+                                <p>Compte d’épargne pour projets immobiliers, avec un taux de 2,2% en 2025. Plafond : 61 200 €.</p>
+                            </div>
+                            <div class="glossary-item">
+                                <h4>Taux d’Endettement</h4>
+                                <p>Pourcentage de vos revenus dédié au remboursement des crédits. Idéal : <33% pour un prêt immobilier.</p>
+                            </div>
+                            <div class="ad-unit">
+                                <ins class="adsbygoogle"
+                                     style="display:block"
+                                     data-ad-client="ca-pub-6283676375456847"
+                                     data-ad-slot="2223334445"
+                                     data-ad-format="auto"
+                                     data-full-width-responsive="true"></ins>
+                                <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                <aside class="sidebar" aria-label="Barre latérale">
+                    <h3>Navigation Rapide</h3>
+                    <ul class="nav-links">
+                        <li><a onclick="showSection('home')">Accueil</a></li>
+                        <li><a onclick="showSection('budget')">Budget</a></li>
+                        <li><a onclick="showSection('loan')">Crédit</a></li>
+                        <li><a onclick="showSection('savings')">Épargne</a></li>
+                        <li><a onclick="showSection('banks')">Banques</a></li>
+                        <li><a onclick="showSection('guides')">Guides</a></li>
+                        <li><a onclick="showSection('tips')">Conseils</a></li>
+                        <li><a onclick="showSection('faq')">FAQ</a></li>
+                        <li><a onclick="showSection('glossary')">Glossaire</a></li>
+                    </ul>
+                    <div class="ad-unit">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-6283676375456847"
+                             data-ad-slot="5556667778"
+                             data-ad-format="auto"
+                             data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </aside>
             </div>
-        </div>
-
-        <div id="tips" class="section hidden">
-            <div class="tips-section">
-                <h3>💡 Conseils Finance Personnelle</h3>
-                
-                <div class="tip-card">
-                    <h4>📈 Épargne Optimisée</h4>
-                    <p>Diversifiez vos placements : 50% Livret A, 30% assurance vie, 20% actions. Le Livret A offre actuellement 3% sans risque, parfait pour l'épargne de précaution.</p>
+            <footer role="contentinfo">
+                <p>© 2025 SABI FINANCES. Tous droits réservés. | <a href="#">Politique de confidentialité</a> | <a href="#">Conditions d’utilisation</a> | <a href="#">Mentions légales</a></p>
+                <p>Contactez-nous : <a href="mailto:contact@sabifinances.fr">contact@sabifinances.fr</a> | Suivez-nous sur <a href="#">Twitter</a> | <a href="#">LinkedIn</a></p>
+                <div class="ad-unit">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-6283676375456847"
+                         data-ad-slot="9990001112"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </div>
-
-                <div class="tip-card">
-                    <h4>🏠 Crédit Immobilier</h4>
-                    <p>Négociez votre taux ! Avec un bon profil, obtenez 3,2% au lieu de 4%. Sur 250k€, cela représente 15k€ d'économies. Faites jouer la concurrence entre banques.</p>
-                </div>
-
-                <div class="tip-card">
-                    <h4>💳 Cartes et Paiements</h4>
-                    <p>Les paiements en 3x sans frais sont avantageux, mais attention aux 4x et plus qui cachent souvent des frais. Privilégiez les banques en ligne pour éviter les frais.</p>
-                </div>
-
-                <div class="tip-card">
-                    <h4>🎯 Défiscalisation 2024</h4>
-                    <p>Profitez du PER (Plan Épargne Retraite) pour réduire vos impôts de 30%. Maximum déductible : 10% de vos revenus ou 35 194€ pour 2024.</p>
-                </div>
-
-                <div class="tip-card">
-                    <h4>🛡️ Assurances Essentielles</h4>
-                    <p>Assurance vie : choisissez des fonds euros à 3%+ garantis. Assurance habitation : comparez, les écarts peuvent atteindre 200€/an pour la même couverture.</p>
-                </div>
+            </footer>
+            <!-- Floating Video -->
+            <div class="floating-video" id="floating-video">
+                <iframe src="https://www.youtube.com/embed/p8kCl22EPp4" title="Tutoriel financier" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-        </div>
-    </main>
-
-    <script>
-        let budgetChart;
-
-        function showSection(sectionId) {
-            // Cacher toutes les sections
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-                section.classList.add('hidden');
-            });
-            
-            // Afficher la section demandée
-            document.getElementById(sectionId).classList.remove('hidden');
-            document.getElementById(sectionId).classList.add('active');
-        }
-
-        function calculateBudget() {
-            const income = parseFloat(document.getElementById('income').value) || 0;
-            const housing = parseFloat(document.getElementById('housing').value) || 0;
-            const food = parseFloat(document.getElementById('food').value) || 0;
-            const transport = parseFloat(document.getElementById('transport').value) || 0;
-            const others = parseFloat(document.getElementById('others').value) || 0;
-
-            const totalExpenses = housing + food + transport + others;
-            const remaining = income - totalExpenses;
-            const savingsRate = (remaining / income * 100).toFixed(1);
-
-            const resultDiv = document.getElementById('budget-result');
-            
-            let advice = '';
-            if (savingsRate >= 20) {
-                advice = '🎉 Excellent ! Vous épargnez plus de 20% de vos revenus.';
-            } else if (savingsRate >= 10) {
-                advice = '👍 Bien ! Essayez d\'atteindre 20% d\'épargne.';
-            } else if (savingsRate >= 0) {
-                advice = '⚠️ Attention ! Votre taux d\'épargne est faible.';
-            } else {
-                advice = '🚨 Budget déficitaire ! Réduisez vos dépenses.';
-            }
-
-            resultDiv.innerHTML = `
-                <h4>Analyse de votre budget</h4>
-                <p><strong>Revenus :</strong> ${income.toLocaleString()}€</p>
-                <p><strong>Dépenses :</strong> ${totalExpenses.toLocaleString()}€</p>
-                <p><strong>Épargne disponible :</strong> ${remaining.toLocaleString()}€</p>
-                <p><strong>Taux d'épargne :</strong> ${savingsRate}%</p>
-                <p>${advice}</p>
-            `;
-            resultDiv.style.display = 'block';
-
-            // Créer le graphique
-            const ctx = document.getElementById('budgetChart').getContext('2d');
-            
-            if (budgetChart) {
-                budgetChart.destroy();
-            }
-
-            budgetChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Logement', 'Alimentation', 'Transport', 'Autres', 'Épargne'],
-                    datasets: [{
-                        data: [housing, food, transport, others, Math.max(0, remaining)],
-                        backgroundColor: [
-                            '#FF6B6B',
-                            '#4ECDC4',
-                            '#45B7D1',
-                            '#96CEB4',
-                            '#FFEAA7'
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
+            <button class="floating-video-toggle" onclick="toggleFloatingVideo()" aria-label="Afficher la vidéo financière">Tutoriel Vidéo</button>
+            <!-- Assistant Widget -->
+            <div class="assistant-widget" id="assistant-widget">
+                <p><strong>Assistant SABI</strong> : Besoin d’aide ? Essayez nos outils ou consultez nos guides pour optimiser vos finances !</p>
+                <button class="calculate-btn" onclick="toggleAssistant()" style="margin-top: 1rem;">Fermer</button>
+            </div>
+            <script>
+                // Variable globale pour le graphique du budget
+                let budgetChart;
+                // Toggle du menu mobile
+                function toggleMenu() {
+                    const navLinks = document.querySelector('.nav-links');
+                    navLinks.classList.toggle('active');
+                }
+                // Afficher une section spécifique
+                function showSection(sectionId) {
+                    document.querySelectorAll('.section').forEach(section => {
+                        section.classList.remove('active');
+                        section.classList.add('hidden');
+                    });
+                    document.getElementById(sectionId).classList.remove('hidden');
+                    document.getElementById(sectionId).classList.add('active');
+                    document.querySelector('.nav-links').classList.remove('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                // Valider les entrées d'un formulaire
+                function validateInputs(inputs) {
+                    let isValid = true;
+                    inputs.forEach(input => {
+                        const errorElement = document.getElementById(`${input.id}-error`);
+                        if (!input.value || input.value < 0 || isNaN(input.value)) {
+                            errorElement.style.display = 'block';
+                            isValid = false;
+                        } else {
+                            errorElement.style.display = 'none';
                         }
+                    });
+                    return isValid;
+                }
+                // Calculer le budget
+                async function calculateBudget() {
+                    const button = event.target;
+                    button.classList.add('loading');
+                    button.disabled = true;
+                    const inputs = [
+                        document.getElementById('income'),
+                        document.getElementById('housing'),
+                        document.getElementById('food'),
+                        document.getElementById('transport'),
+                        document.getElementById('leisure'),
+                        document.getElementById('others')
+                    ];
+                    if (!validateInputs(inputs)) {
+                        button.classList.remove('loading');
+                        button.disabled = false;
+                        return;
+                    }
+                    const income = parseFloat(inputs[0].value);
+                    const housing = parseFloat(inputs[1].value);
+                    const food = parseFloat(inputs[2].value);
+                    const transport = parseFloat(inputs[3].value);
+                    const leisure = parseFloat(inputs[4].value);
+                    const others = parseFloat(inputs[5].value);
+                    const totalExpenses = housing + food + transport + leisure + others;
+                    const remaining = income - totalExpenses;
+                    const savingsRate = income ? (remaining / income * 100).toFixed(1) : 0;
+                    const resultDiv = document.getElementById('budget-result');
+                    let advice = '';
+                    let recommendations = '';
+                    let smartTip = '';
+                    if (savingsRate >= 20) {
+                        advice = '🎉 Excellent ! Vous épargnez plus de 20 % de vos revenus.';
+                        recommendations = 'Continuez à investir dans des produits comme le Livret A ou l’assurance vie.';
+                        smartTip = 'Envisagez d’augmenter vos investissements dans des ETF pour un rendement à long terme (7-10%).';
+                    } else if (savingsRate >= 10) {
+                        advice = '👍 Bien ! Essayez d’atteindre 20 % d’épargne.';
+                        recommendations = 'Réduisez vos dépenses loisirs ou abonnements pour augmenter votre épargne.';
+                        smartTip = 'Analysez vos dépenses loisirs : supprimer un abonnement de 15 €/mois peut libérer 180 €/an.';
+                    } else if (savingsRate >= 0) {
+                        advice = '⚠️ Attention ! Votre taux d’épargne est faible.';
+                        recommendations = 'Revoyez vos dépenses en alimentation ou transport pour économiser davantage.';
+                        smartTip = 'Considérez des alternatives moins coûteuses, comme le covoiturage pour réduire les frais de transport.';
+                    } else {
+                        advice = '🚨 Budget déficitaire ! Réduisez vos dépenses.';
+                        recommendations = 'Priorisez les dépenses essentielles et envisagez des revenus complémentaires.';
+                        smartTip = 'Explorez des sources de revenus passifs, comme la location d’un bien ou des missions freelances.';
+                    }
+                    resultDiv.innerHTML = `
+                        <h4>Analyse de votre budget</h4>
+                        <p><strong>Revenus :</strong> ${income.toLocaleString('fr-FR')} €</p>
+                        <p><strong>Dépenses totales :</strong> ${totalExpenses.toLocaleString('fr-FR')} €</p>
+                        <p><strong>Épargne disponible :</strong> ${remaining.toLocaleString('fr-FR')} €</p>
+                        <p><strong>Taux d'épargne :</strong> ${savingsRate} %</p>
+                        <p><strong>Conseil :</strong> ${advice}</p>
+                        <p><strong>Recommandations :</strong> ${recommendations}</p>
+                        <p><strong>Astuce intelligente :</strong> ${smartTip}</p>
+                    `;
+                    resultDiv.style.display = 'block';
+                    if (budgetChart) {
+                        budgetChart.destroy();
+                    }
+                    const ctx = document.getElementById('budgetChart').getContext('2d');
+                    budgetChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Logement', 'Alimentation', 'Transport', 'Loisirs', 'Autres', 'Épargne'],
+                            datasets: [{
+                                data: [housing, food, transport, leisure, others, Math.max(0, remaining)],
+                                backgroundColor: ['#e53e3e', '#38b2ac', '#2b6cb0', '#9f7aea', '#d69e2e', '#f6e05e'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        font: { family: 'Roboto', size: 14 }
+                                    }
+                                },
+                                tooltip: {
+                                    backgroundColor: '#1a202c',
+                                    titleFont: { family: 'Montserrat', size: 14 },
+                                    bodyFont: { family: 'Roboto', size: 12 },
+                                    callbacks: {
+                                        label: (context) => `${context.label}: ${context.raw.toLocaleString('fr-FR')} €`
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    button.classList.remove('loading');
+                    button.disabled = false;
+                }
+                // Calculer le prêt
+                async function calculateLoan() {
+                    const button = event.target;
+                    button.classList.add('loading');
+                    button.disabled = true;
+                    const inputs = [
+                        document.getElementById('loanAmount'),
+                        document.getElementById('interestRate')
+                    ];
+                    if (!validateInputs(inputs)) {
+                        button.classList.remove('loading');
+                        button.disabled = false;
+                        return;
+                    }
+                    const amount = parseFloat(inputs[0].value);
+                    const rate = parseFloat(inputs[1].value) / 100 / 12;
+                    const duration = parseInt(document.getElementById('loanDuration').value) * 12;
+                    if (amount && rate && duration) {
+                        const monthly = (amount * rate * Math.pow(1 + rate, duration)) / (Math.pow(1 + rate, duration) - 1);
+                        const total = monthly * duration;
+                        const interest = total - amount;
+                        const smartTip = rate > 0.035 ? 'Le taux moyen en 2025 est d’environ 3,2%. Consultez un courtier pour négocier un taux plus bas.' : 'Votre taux est compétitif ! Comparez encore pour confirmer.';
+                        const resultDiv = document.getElementById('loan-result');
+                        resultDiv.innerHTML = `
+                            <h4>Résultat de votre simulation</h4>
+                            <p><strong>Mensualité :</strong> ${monthly.toLocaleString('fr-FR', {maximumFractionDigits: 2})} €</p>
+                            <p><strong>Coût total :</strong> ${total.toLocaleString('fr-FR', {maximumFractionDigits: 2})} €</p>
+                            <p><strong>Intérêts :</strong> ${interest.toLocaleString('fr-FR', {maximumFractionDigits: 2})} €</p>
+                            <p><strong>Astuce intelligente :</strong> ${smartTip}</p>
+                            <p><em><strong>💡 Conseil :</strong> Une baisse de 0,5 % peut économiser ${((interest * 0.15)).toLocaleString('fr-FR', {maximumFractionDigits: 0})} €.</em></p>
+                        `;
+                        resultDiv.style.display = 'block';
+                    }
+                    button.classList.remove('loading');
+                    button.disabled = false;
+                }
+                // Calculer l'épargne
+                async function calculateSavings() {
+                    const button = event.target;
+                    button.classList.add('loading');
+                    button.disabled = true;
+                    const inputs = [
+                        document.getElementById('initialSavings'),
+                        document.getElementById('monthlySavings'),
+                        document.getElementById('savingsRate')
+                    ];
+                    if (!validateInputs(inputs)) {
+                        button.classList.remove('loading');
+                        button.disabled = false;
+                        return;
+                    }
+                    const initial = parseFloat(inputs[0].value);
+                    const monthly = parseFloat(inputs[1].value);
+                    const rate = parseFloat(inputs[2].value) / 100;
+                    const years = parseInt(document.getElementById('savingsDuration').value);
+                    const monthlyRate = rate / 12;
+                    const months = years * 12;
+                    let total = initial;
+                    for (let i = 0; i < months; i++) {
+                        total = total * (1 + monthlyRate) + monthly;
+                    }
+                    const smartTip = rate < 0.05 ? 'Envisagez des ETF ou une assurance vie pour un rendement supérieur (5-7%).' : 'Bon choix de taux ! Diversifiez avec des ETF pour maximiser vos gains.';
+                    const resultDiv = document.getElementById('savings-result');
+                    resultDiv.innerHTML = `
+                        <h4>Résultat de votre simulation d'épargne</h4>
+                        <p><strong>Montant final :</strong> ${total.toLocaleString('fr-FR', {maximumFractionDigits: 2})} €</p>
+                        <p><strong>Contribution totale :</strong> ${(initial + monthly * months).toLocaleString('fr-FR')} €</p>
+                        <p><strong>Intérêts gagnés :</strong> ${(total - (initial + monthly * months)).toLocaleString('fr-FR')} €</p>
+                        <p><strong>Astuce intelligente :</strong> ${smartTip}</p>
+                        <p><strong>Conseil :</strong> Investissez régulièrement et diversifiez pour maximiser vos rendements.</p>
+                    `;
+                    resultDiv.style.display = 'block';
+                    button.classList.remove('loading');
+                    button.disabled = false;
+                }
+                // Filtrer les banques
+                function filterBanks() {
+                    const filter = document.getElementById('bankFilter').value;
+                    const banks = document.querySelectorAll('.bank-card');
+                    banks.forEach(bank => {
+                        if (filter === 'all' || bank.dataset.type === filter) {
+                            bank.style.display = 'flex';
+                        } else {
+                            bank.style.display = 'none';
+                        }
+                    });
+                }
+                // Sauvegarder les résultats
+                function saveResults(resultId) {
+                    const resultDiv = document.getElementById(resultId);
+                    if (resultDiv.style.display === 'block') {
+                        const resultText = resultDiv.innerText;
+                        const blob = new Blob([resultText], { type: 'text/plain' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `${resultId}-resultats.txt`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                        alert('Résultats sauvegardés avec succès !');
+                    } else {
+                        alert('Aucun résultat à sauvegarder. Veuillez effectuer un calcul d’abord.');
                     }
                 }
-            });
-        }
-
-        function calculateLoan() {
-            const amount = parseFloat(document.getElementById('loanAmount').value) || 0;
-            const rate = parseFloat(document.getElementById('interestRate').value) / 100 / 12 || 0;
-            const duration = parseInt(document.getElementById('loanDuration').value) * 12 || 0;
-
-            if (amount > 0 && rate > 0 && duration > 0) {
-                const monthly = (amount * rate * Math.pow(1 + rate, duration)) / (Math.pow(1 + rate, duration) - 1);
-                const total = monthly * duration;
-                const interest = total - amount;
-
-                const resultDiv = document.getElementById('loan-result');
-                resultDiv.innerHTML = `
-                    <h4>Résultat de votre simulation</h4>
-                    <p><strong>Mensualité :</strong> ${monthly.toLocaleString('fr-FR', {maximumFractionDigits: 2})}€</p>
-                    <p><strong>Coût total :</strong> ${total.toLocaleString('fr-FR', {maximumFractionDigits: 2})}€</p>
-                    <p><strong>Intérêts :</strong> ${interest.toLocaleString('fr-FR', {maximumFractionDigits: 2})}€</p>
-                    <p><em>💡 Conseil : Négociez votre taux ! 0,5% de moins = ${((interest * 0.15)).toLocaleString('fr-FR', {maximumFractionDigits: 0})}€ d'économies</em></p>
-                `;
-                resultDiv.style.display = 'block';
-            }
-        }
-
-        // Initialiser avec des données d'exemple
-        window.onload = function() {
-            document.getElementById('income').value = '3500';
-            document.getElementById('housing').value = '1200';
-            document.getElementById('food').value = '400';
-            document.getElementById('transport').value = '200';
-            document.getElementById('others').value = '300';
-            
-            document.getElementById('loanAmount').value = '250000';
-            document.getElementById('interestRate').value = '3.5';
-        };
-    </script>
-</body>
-</html>
+                // Toggle de la vidéo flottante
+                function toggleFloatingVideo() {
+                    const video = document.getElementById('floating-video');
+                    const toggle = document.querySelector('.floating-video-toggle');
+                    video.classList.toggle('active');
+                    toggle.style.display = video.classList.contains('active') ? 'none' : 'block';
+                }
+                // Toggle de l’assistant
+                function toggleAssistant() {
+                    const assistant = document.getElementById('assistant-widget');
+                    assistant.classList.toggle('active');
+                }
+                // Initialisation des champs
+                window.onload = function() {
+                    document.getElementById('income').value = '3500';
+                    document.getElementById('housing').value = '1200';
+                    document.getElementById('food').value = '400';
+                    document.getElementById('transport').value = '200';
+                    document.getElementById('leisure').value = '150';
+                    document.getElementById('others').value = '300';
+                    document.getElementById('loanAmount').value = '250000';
+                    document.getElementById('interestRate').value = '3.5';
+                    document.getElementById('initialSavings').value = '1000';
+                    document.getElementById('monthlySavings').value = '200';
+                    document.getElementById('savingsRate').value = '3.0';
+                    // Afficher l’assistant après 5 secondes
+                    setTimeout(() => {
+                        document.getElementById('assistant-widget').classList.add('active');
+                    }, 5000);
+                };
+            </script>
+        </body>
+    </html>
